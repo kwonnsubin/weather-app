@@ -2,8 +2,15 @@ import Link from "next/link"
 import HomeButton from "../components/HomeButton"
 import { getForecast } from "../utils/getForecast"
 
-export default async function Detail({ params }) {
-    const name = params.location === 'seoul' ? '서울' : ''
+export function generateMetadata({ searchParams }) {
+    return {
+        title: `날씨 앱 - ${searchParams.name} `,
+        description: `${searchParams.name} 날씨를 알려드립니다`,
+    }
+}
+
+export default async function Detail({ params, searchParams }) {
+    const name = searchParams.name
     const res = await getForecast(params.location);
 
     return (
